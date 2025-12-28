@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { loginState } from "@/state";
 import { useRecoilState } from "recoil";
 import { Menu, Transition } from "@headlessui/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { IconLogout, IconChevronDown } from "@tabler/icons-react";
 import axios from "axios";
 import { Fragment } from "react";

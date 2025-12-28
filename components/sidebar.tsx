@@ -4,7 +4,7 @@ import { loginState, workspacestate } from "@/state"
 import { themeState } from "@/state/theme"
 import { useRecoilState } from "recoil"
 import { Menu, Listbox, Dialog } from "@headlessui/react"
-import { useRouter } from "next/router"
+import { useRouter, usePathname } from "next/navigation"
 import {
   IconHome,
   IconHomeFilled,
@@ -112,6 +112,7 @@ const Sidebar: NextPage<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
   const [policiesEnabled, setPoliciesEnabled] = useState(false);
   const [pendingPolicyCount, setPendingPolicyCount] = useState(0);
   const router = useRouter()
+  const pathname = usePathname()
 
   // Add body class to prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -343,7 +344,7 @@ const Sidebar: NextPage<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
                     onClick={() => gotopage(page.href)}
                     className={clsx(
                       "w-full gap-3 px-2 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative",
-                      router.asPath === page.href.replace("[id]", workspace.groupId.toString())
+                      pathname === page.href.replace("[id]", workspace.groupId.toString())
                         ? "bg-[color:rgb(var(--group-theme)/0.1)] text-[color:rgb(var(--group-theme))] font-semibold"
                         : "text-zinc-700 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700",
                       isCollapsed ? "grid place-content-center" : "flex gap-2 items-center",
@@ -351,7 +352,7 @@ const Sidebar: NextPage<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
                   >
                     {(() => {
                       const IconComponent: React.ElementType =
-                        router.asPath === page.href.replace("[id]", workspace.groupId.toString())
+                        pathname === page.href.replace("[id]", workspace.groupId.toString())
                           ? page.filledIcon || page.icon
                           : page.icon;
                       return <IconComponent className="w-5 h-5" />;
